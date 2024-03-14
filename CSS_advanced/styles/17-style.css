@@ -164,9 +164,12 @@ a:active {
 .section-body {
     padding: var(--section-body-padding);
 }
+.section-footer {
+    padding: var(--section-footer-padding);
+    text-align: var(--section-footer-align);
 }
 .card-category, .section-tagline {
-    color: #D73953;
+	color: #D73953;
 }
 .section-title {
 	font-family: var(--font-family-title);
@@ -185,6 +188,7 @@ a:active {
     margin-left: auto;
     margin-right: auto;
 }
-.section-footer {
-    padding: var(--section-footer-padding);
-    text-align: var(--section-footer-align);
+
+.footer {
+    padding: var(--footer-padding);
+}
