@@ -387,7 +387,7 @@
     transform: rotate(45deg);
 }
 
-.header .menu-btn:checked~.menu-icon .navicon::after, .menu-btn:checked~.menu-icon .navicon::beforev {
+.header .menu-btn:checked~.menu-icon .navicon::after, .menu-btn:checked~.menu-icon .navicon::before {
     top: 0;
 }
 
