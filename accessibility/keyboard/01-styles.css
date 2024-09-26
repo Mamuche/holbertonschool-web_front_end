@@ -672,8 +672,11 @@
     display: block;
     text-decoration: none;
     padding-top: 45%;
+}
+
+.card-work .card-title a {
     opacity: 1;
-  }
+}
   
   .card-work .card-title a::after {
     position: absolute;
