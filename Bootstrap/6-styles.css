@@ -1,0 +1,66 @@
+:root {
+    --primary-color: #E0003C;
+    --secondary-color: #BC1340
+}
+
+
+
+    .btn-primary {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+    }
+
+    .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+        background-color: var(--secondary-color);
+        border-color: var(--primary-color);
+    }
+ 
+    .btn-outline-primary {
+        color: var(--primary-color);
+        border-color: var(--primary-color);
+    }
+
+    .btn-outline-primary:hover, .btn-outline-primary:focus, .btn-outline-primary:active {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+    }
+
+    .card-header, .card-footer {
+        background-color: var(--primary-color);
+        color: white;
+        border-color: var(--primary-color);
+   }
+
+   .card {
+	border-radius: 1rem;
+    border-color: var(--primary-color) !important;
+    }
+
+    .card-header {
+        border-radius: calc(1rem - 3px) calc(1rem - 3px) 0 0 !important;
+    }
+
+    .border-bottom {
+		border-color: var(--primary-color) !important;
+	}
+
+   a.text-dark, a.text-dark:hover, a.text-dark:active {
+	text-decoration: none;
+	color: var(--primary-color) !important;
+    }
+    /* Redefine border header */
+/* 
+	.border-bottom {
+		border-color: var(--primary-color) !important;
+	}
+.card {
+	border-radius: 1rem;
+}
+
+.card-header {
+	border-radius: calc(1rem - 3px) calc(1rem - 3px) 0 0 !important;
+	background-color: #E0003C;
+	color: #fff;
+} */
+
+    
