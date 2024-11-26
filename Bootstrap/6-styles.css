@@ -48,19 +48,6 @@
 	text-decoration: none;
 	color: var(--primary-color) !important;
     }
-    /* Redefine border header */
-/* 
-	.border-bottom {
-		border-color: var(--primary-color) !important;
-	}
-.card {
-	border-radius: 1rem;
-}
 
-.card-header {
-	border-radius: calc(1rem - 3px) calc(1rem - 3px) 0 0 !important;
-	background-color: #E0003C;
-	color: #fff;
-} */
 
     
