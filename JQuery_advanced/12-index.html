@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 12</title>
+    <!-- Import jQuery -->
+    <script 
+        src="https://code.jquery.com/jquery-3.6.3.min.js"
+        integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
+        crossorigin="anonymous">
+    </script>
+</head>
+
+<body>
+    <script>
+        // Fonction pour ajouter une ligne pour chaque post
+        function addPostRow(data) {
+            const paragraph = $('<p>').attr('id', `row-${data.id}`); // Ajoute un id au paragraphe
+            const deleteSpan = $('<span>')
+                .text('(delete) ')
+                .css('cursor', 'pointer') // Indique que c'est cliquable
+                .click(() => deletePost(data.id)); // Appelle deletePost au clic
+            const infoSpan = $('<span>').text(
+                `Post created with id ${data.id}, title: ${data.title}, author: ${data.author}`
+            );
+
+            paragraph.append(deleteSpan, infoSpan); // Ajoute les spans au paragraphe
+            $('body').append(paragraph); // Ajoute le paragraphe au body
+        }
+
+        // Fonction pour supprimer un post
+        function deletePost(id) {
+            const apiUrl = `http://localhost:3000/posts/${id}`; // Endpoint pour le post à supprimer
+
+            $.ajax({
+                url: apiUrl,
+                method: 'DELETE',
+                success: () => {
+                    $(`#row-${id}`).remove(); // Supprime la ligne correspondante
+                },
+                error: () => {
+                    alert('Post was not deleted'); // Alerte en cas d'échec
+                }
+            });
+        }
+
+        // Fonction pour lister les posts
+        function listPosts() {
+            const apiUrl = 'http://localhost:3000/posts';
+
+            $.get(apiUrl)
+                .done((response) => {
+                    response.forEach(post => {
+                        addPostRow(post);
+                    });
+                })
+                .fail(() => {
+                    alert('Server Error');
+                });
+        }
+
+        // Fonction pour créer le formulaire
+        function buildForm() {
+            const form = $('<form>');
+            const divAuthor = $('<div>');
+            const labelAuthor = $('<label for="author">Author</label>');
+            const inputAuthor = $('<input type="text" id="author">');
+            const divTitle = $('<div>');
+            const labelTitle = $('<label for="title">Title</label>');
+            const textareaTitle = $('<textarea id="title"></textarea>');
+            const submitButton = $('<input type="submit" value="Submit">');
+
+            divAuthor.append(labelAuthor, inputAuthor);
+            divTitle.append(labelTitle, textareaTitle);
+            form.append(divAuthor, divTitle, submitButton);
+
+            form.submit((e) => {
+                e.preventDefault();
+                sendForm();
+            });
+
+            $('body').append(form);
+        }
+
+        // Fonction pour envoyer les données du formulaire
+        function sendForm() {
+            const author = $('#author').val().trim();
+            const title = $('#title').val().trim();
+
+            if (!author || !title) {
+                alert('Both fields are required.');
+                return;
+            }
+
+            $('form').after('<p>About to send the query to the API</p>');
+
+            const data = {
+                author: author,
+                title: title
+            };
+
+            $.post('http://localhost:3000/posts', data)
+                .done((response) => {
+                    addPostRow(response);
+                })
+                .fail(() => {
+                    alert('Error sending the POST query');
+                });
+        }
+
+        // Appelle les fonctions au chargement de la page
+        $(document).ready(() => {
+            listPosts();
+            buildForm();
+        });
+    </script>
+</body>
+
+</html>

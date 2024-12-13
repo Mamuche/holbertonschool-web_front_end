@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 7</title>
+    <script 
+        src="https://code.jquery.com/jquery-3.6.3.min.js"
+        integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
+        crossorigin="anonymous">
+    </script>
+</head>
+
+<body>
+    <script type="application/javascript">
+        function createSearchForm() {
+            const form = $('<form>');
+            const inputText = $('<input type="text">');
+            const submitButton = $('<input type="submit" value="Search">');
+            const resultList = $('<ul>');
+
+            form.append(inputText, submitButton);
+
+            form.submit((e) => {
+                e.preventDefault();
+                const searchQuery = inputText.val().trim();
+                if (searchQuery) {
+                    queryWikipedia(searchQuery, resultList);
+                }
+            });
+
+            $('body').append(form, resultList);
+        }
+
+        function addNewArticle(id, title, snippet) {
+            const listItem = $('<li>');
+            const paragraph1 = $('<p>').html(`<span>${id} - </span><b>${title}</b>`);
+            const paragraph2 = $('<p>').html(snippet);
+
+            listItem.append(paragraph1, paragraph2);
+
+            $('ul').append(listItem);
+        }
+
+        function queryWikipedia(search, resultList) {
+            resultList.empty();
+
+            // Paramètres pour l'appel à l'API
+            const apiUrl = 'https://en.wikipedia.org/w/api.php';
+            const data = {
+                action: 'query',
+                list: 'search',
+                srsearch: search,
+                format: 'json',
+                origin: '*' // Résolution du problème CORS
+            };
+
+            // Requête AJAX vers l'API Wikipédia
+            $.ajax({
+                url: apiUrl,
+                method: 'GET',
+                data: data,
+                success: (response) => {
+                    const results = response.query.search; // Résultats renvoyés par l'API
+                    results.forEach(result => {
+                        addNewArticle(result.pageid, result.title, result.snippet);
+                    });
+                },
+                error: (xhr, status, error) => {
+                    console.error('Erreur lors de la requête Wikipedia:', status, error);
+                }
+            });
+        }
+
+        $(document).ready(() => {
+            createSearchForm();
+        });
+        </script>
+    </body>
+
+</html>
